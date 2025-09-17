@@ -62,11 +62,15 @@ export async function POST(req: NextRequest) {
         const rawResp = result.response.text();
         const cleaned = rawResp.replace("```json", "").replace("```", "");
         const jsonResp = JSON.parse(cleaned);
+        console.log(jsonResp.course)
+        const imagePrompt = jsonResp.course?.chapters[0].imagePrompt;
 
-        const imagePrompt = jsonResp.course?.bannerImagePrompt;
+        console.log('imagePrompt===')
+        console.log(imagePrompt)
+
         const bannerImageUrl = await generateImage(imagePrompt);
 
-        // Сохраняем в БД
+
         const cid = uuidv4();
         await db.insert(coursesTable).values({
             ...formData,
@@ -81,7 +85,7 @@ export async function POST(req: NextRequest) {
     } catch (err: any) {
         console.error("❌ Ошибка в generate-course-layout:", err);
 
-        // Обработка перегрузки или лимитов
+
         if (err?.status === 503) {
             return NextResponse.json(
                 { error: "Модель перегружена. Попробуйте позже." },
