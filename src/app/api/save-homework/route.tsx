@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
         currentHomeworks[key] = { answers };
 
 
-        // save to db
+
 
         await db.update(enrolledCourseTable)
             .set({homeworks: currentHomeworks})

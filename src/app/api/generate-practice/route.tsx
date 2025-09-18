@@ -24,17 +24,13 @@ export async function POST(req: NextRequest) {
 
         const course = courses[0].courseJson?.course;
 
-        console.log('course===')
-        console.log(course)
+
 
 
 
         const chapter = course.chapters?.[groupIndex] || course.chapters[groupIndex].topics[chapterIndex];
 
-        console.log('chapter===')
-        console.log(chapter)
 
-        // 3. Промпт для Gemini
         const prompt = `
 Ты преподаватель. Сгенерируй практическое задание по теме "${chapter.chapterName}" 
 для языка ${course.name}. 
@@ -56,7 +52,7 @@ export async function POST(req: NextRequest) {
 - Верни только JSON, без Markdown и текста вокруг.
     `;
 
-        // 4. Генерация
+
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
         const result = await model.generateContent(prompt);
 
@@ -69,8 +65,6 @@ export async function POST(req: NextRequest) {
 
         const practice = JSON.parse(jsonString);
 
-        console.log('save-practice-task===')
-        console.log(practice)
 
 
 

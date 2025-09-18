@@ -449,9 +449,9 @@ setCardLoading(true)
                                 <AccordionContent>
                                     <div style={{ lineHeight: "2.5" }}>
                                         {currentChapter.courseData.content.split(/```(.*?)\n([\s\S]*?)```/g).map((part, i) => {
-                                            // part[1] = язык, part[2] = код
+
                                             if (i % 3 === 1) {
-                                                const language = part; // язык программирования
+                                                const language = part;
                                                 const code = currentChapter.courseData.content.split(/```.*?\n([\s\S]*?)```/g)[1];
                                                 return (
                                                     <SyntaxHighlighter
@@ -484,7 +484,7 @@ setCardLoading(true)
                                             <CardHeader>
                                                 <Skeleton className="h-6 w-40 rounded-md" />
                                             </CardHeader>
-                                            <CardContent className="flex flex-col items-center gap-4">
+                                            <CardContent className="flex flex-wrap items-center gap-4">
                                                 <Skeleton className="h-[120px] w-[120px] rounded-lg" />
                                                 <Skeleton className="h-10 w-44 rounded-lg" />
                                             </CardContent>
@@ -649,14 +649,7 @@ setCardLoading(true)
 
 
 
-                        {loadingMaterials &&    ([1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
-                            <div key={index} className="flex flex-col space-y-3">
-                        <Skeleton className="h-[125px] bg-orange-100 w-[250px] rounded-xl"/>
-                        <div className="space-y-2">
-                            <Skeleton className="h-4 w-[250px]"/>
-                            <Skeleton className="h-4 w-[200px]"/>
-                        </div>
-                </div>)))}
+
 
                         {!loadingMaterials && materials && (
 

@@ -20,10 +20,7 @@ export async function POST(req: NextRequest) {
 
         const chapter = course.courseContent[groupIndex][chapterIndex];
 
-        console.log('course.courseContent[groupIndex]===')
-        console.log(course.courseContent[groupIndex])
-        console.log('chapter===')
-        console.log(chapter)
+
         const prompt = `
 Ты — генератор практических заданий для студентов.
 
@@ -58,17 +55,15 @@ export async function POST(req: NextRequest) {
 - "correctAnswer" должен быть коротким и точным.
 `;
 
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
         const result = await model.generateContent(prompt);
         let rawResp = result.response.text();
 
-        // Чистим все лишнее
         rawResp = rawResp
             .replace(/```json/g, "")
             .replace(/```/g, "")
             .trim();
 
-        // Иногда Gemini добавляет что-то до/после JSON
         const firstBrace = rawResp.indexOf("{");
         const lastBrace = rawResp.lastIndexOf("}");
         if (firstBrace === -1 || lastBrace === -1) {
@@ -78,7 +73,6 @@ export async function POST(req: NextRequest) {
         const jsonString = rawResp.substring(firstBrace, lastBrace + 1);
         const parsed = JSON.parse(jsonString);
 
-        // обновляем только одну главу
         const updatedCourseContent = course.courseContent.map(
             (group: any, gIndex: number) => {
                 if (gIndex !== groupIndex) return group;
