@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
 
 
 
-        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
         const result = await model.generateContent(prompt);
 
         let raw = result.response.text().replace(/```json|```/g, "").trim();

@@ -261,12 +261,12 @@ setCardLoading(true)
     const generateMaterials = async () => {
         setLoadingMaterials(true);
         try {
+
             const res = await axios.post(`/api/generate-materials`, {
                 courseId,
                 groupIndex,
                 chapterIndex: selectedChapter
             });
-            console.log(res.data)
             setPdf(res.data.pdf)
             setMaterials(res.data.materials);
             toast.success('Материал успешно сгенерован!')
@@ -306,7 +306,7 @@ setCardLoading(true)
                 userAnswer: "" // пока пустой ответ
             });
 
-            console.log(res.data)
+
             toast.success('Practice task успешно сгенеровано!')
         } catch (err) {
             toast.error("Ошибка генерации save-practice-task task");

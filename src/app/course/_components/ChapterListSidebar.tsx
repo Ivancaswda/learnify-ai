@@ -9,9 +9,9 @@ const ChapterListSidebar = ({ course, enrolledCourse }: any) => {
     const { selectedChapter, setSelectedChapter } = useContext(SelectedChapterContext);
     const completedChapter = enrolledCourse?.completedChapters;
 
-    const { group } = useParams(); // Получаем текущую группу из URL параметра
+    const { group } = useParams();
 
-    // Проверка на пустое содержание курса
+
     if (!course?.courseContent || course?.courseContent.length === 0) {
         return (
             <div className='flex items-center flex-col gap-4 h-screen justify-center w-full'>
@@ -22,7 +22,7 @@ const ChapterListSidebar = ({ course, enrolledCourse }: any) => {
     }
 
 
-    console.log(selectedChapter)
+
     const handleChapterClick = ( chapterIndex: number) => {
         setSelectedChapter(chapterIndex);
     };
